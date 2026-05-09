@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8" />
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>Undi Nama Hanacaraka</title>
+
+<!-- CoreUI -->
+<link
+href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.0.2/dist/css/coreui.min.css"
+rel="stylesheet"
+/>
+
+<!-- Animate CSS -->
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+
+<style>
+
+body {
+background:
+radial-gradient(circle at top, #4f46e5, #111827);
+
+min-height: 100vh;
+
+overflow-x: hidden;
+
+color: white;
+}
+
+/* =======================
+Navbar
+======================= */
+
+.navbar {
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter: blur(12px);
+
+border-bottom:
+1px solid rgba(255,255,255,0.08);
+}
+
+.navbar-brand {
+font-size: 22px;
+}
+
+.nav-link {
+color: rgba(255,255,255,0.75) !important;
+font-weight: 600;
+transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+color: white !important;
+transform: translateY(-1px);
+}
+
+.nav-link.active {
+color: white !important;
+}
+
+/* =======================
+Glow Background
+======================= */
+
+.glow {
+position: fixed;
+
+width: 500px;
+height: 500px;
+
+border-radius: 50%;
+
+filter: blur(100px);
+
+z-index: -1;
+
+animation:
+floating 8s infinite ease-in-out;
+}
+
+.glow1 {
+left: -150px;
+top: -100px;
+
+background:
+rgba(99,102,241,0.3);
+}
+
+.glow2 {
+right: -150px;
+top: 150px;
+
+background:
+rgba(236,72,153,0.25);
+
+animation-delay: 2s;
+}
+
+@keyframes floating {
+
+0% {
+transform: translateY(0px);
+}
+
+50% {
+transform: translateY(30px);
+}
+
+100% {
+transform: translateY(0px);
+}
+}
+
+/* =======================
+Card
+======================= */
+
+.main-card {
+
+margin-top: 40px;
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter: blur(14px);
+
+border: none;
+
+border-radius: 24px;
+
+overflow: hidden;
+}
+
+/* =======================
+Name Item
+======================= */
+
+.name-item {
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+
+background:
+rgba(255,255,255,0.1);
+
+border-radius: 14px;
+
+padding: 14px 18px;
+
+margin-bottom: 10px;
+
+font-weight: 700;
+
+animation:
+fadeInUp 0.4s ease;
+}
+
+/* =======================
+Wheel
+======================= */
+
+.wheel-container {
+
+width: 360px;
+height: 360px;
+
+margin: 40px auto;
+
+position: relative;
+}
+
+.wheel {
+
+width: 100%;
+height: 100%;
+
+border-radius: 50%;
+
+border: 12px solid white;
+
+overflow: hidden;
+
+position: relative;
+
+transition:
+transform 6s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+
+box-shadow:
+0 0 40px rgba(255,255,255,0.15),
+0 0 100px rgba(99,102,241,0.35);
+}
+
+.wheel::after {
+
+content: '';
+
+position: absolute;
+
+inset: 20px;
+
+border-radius: 50%;
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter: blur(10px);
+}
+
+.segment {
+
+position: absolute;
+
+width: 50%;
+height: 50%;
+
+left: 0;
+top: 0;
+
+transform-origin: 100% 100%;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+padding-left: 70px;
+
+box-sizing: border-box;
+
+font-size: 13px;
+
+font-weight: 800;
+
+color: white;
+
+text-shadow:
+0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* =======================
+Pointer
+======================= */
+
+.pointer {
+
+width: 0;
+height: 0;
+
+border-left: 24px solid transparent;
+border-right: 24px solid transparent;
+border-top: 48px solid #ff3d71;
+
+position: absolute;
+
+top: -12px;
+left: 50%;
+
+transform: translateX(-50%);
+
+z-index: 99;
+
+filter:
+drop-shadow(0 0 15px rgba(255,61,113,0.8));
+
+animation:
+pulsePointer 1s infinite;
+}
+
+@keyframes pulsePointer {
+
+0% {
+transform: translateX(-50%) scale(1);
+}
+
+50% {
+transform: translateX(-50%) scale(1.1);
+}
+
+100% {
+transform: translateX(-50%) scale(1);
+}
+}
+
+/* =======================
+Winner Box
+======================= */
+
+.winner-box {
+
+margin-top: 40px;
+
+padding: 30px;
+
+text-align: center;
+
+border-radius: 20px;
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter: blur(12px);
+}
+
+.winner-name {
+
+font-size: 42px;
+
+font-weight: 900;
+
+margin-top: 10px;
+
+text-shadow:
+0 0 25px rgba(255,255,255,0.5);
+}
+
+/* =======================
+Spin Button
+======================= */
+
+.spin-button {
+
+padding: 14px 50px;
+
+border-radius: 999px;
+
+font-size: 20px;
+
+font-weight: 700;
+
+transition: all 0.3s ease;
+
+box-shadow:
+0 0 25px rgba(46,184,92,0.4);
+}
+
+.spin-button:hover {
+
+transform: scale(1.05);
+}
+
+/* =======================
+Confetti
+======================= */
+
+.confetti {
+
+position: fixed;
+
+top: -20px;
+
+z-index: 999;
+
+opacity: 0.9;
+
+animation:
+fall linear forwards;
+}
+
+@keyframes fall {
+
+to {
+
+transform:
+translateY(110vh)
+rotate(720deg);
+
+opacity: 0;
+}
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- Glow -->
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+<div class="container">
+
+<a
+class="navbar-brand fw-bold"
+href="index.html"
+>
+Hanacaraka System
+</a>
+
+<button
+class="navbar-toggler"
+type="button"
+data-coreui-toggle="collapse"
+data-coreui-target="#navbarNav"
+>
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div
+class="collapse navbar-collapse"
+id="navbarNav"
+>
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+<a
+class="nav-link"
+href="index.html"
+>
+🏠 Hitung Nama
+</a>
+</li>
+
+<li class="nav-item">
+<a
+class="nav-link active"
+href="undiNama.html"
+>
+🎡 Undi Nama
+</a>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- Main -->
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-10">
+
+<div class="card main-card shadow-lg animate__animated animate__fadeIn">
+
+<div class="card-body p-4">
+
+<h1 class="fw-bold mb-2">
+🎡 Undi Nama Hanacaraka
+</h1>
+
+<p class="opacity-75 mb-4">
+Tambahkan nama lalu putar roda.
+Sisanya biarkan algoritma chaos bekerja.
+</p>
+
+<!-- Input -->
+
+<div class="row g-2 mb-4">
+
+<div class="col-md-9">
+
+<input
+type="text"
+class="form-control form-control-lg"
+id="nameInput"
+placeholder="Masukkan nama..."
+/>
+
+</div>
+
+<div class="col-md-3">
+
+<button
+class="btn btn-primary btn-lg w-100"
+onclick="addName()"
+>
+Tambah
+</button>
+
+</div>
+
+</div>
+
+<!-- Name List -->
+
+<div id="nameList"></div>
+
+<!-- Wheel -->
+
+<div class="wheel-container">
+
+<div class="pointer"></div>
+
+<div
+class="wheel"
+id="wheel"
+></div>
+
+</div>
+
+<!-- Spin -->
+
+<div class="text-center mt-4">
+
+<button
+class="btn btn-success spin-button"
+onclick="spinWheel()"
+>
+🎲 SPIN
+</button>
+
+</div>
+
+<!-- Winner -->
+
+<div
+class="winner-box animate__animated"
+id="winnerBox"
+>
+
+<div class="opacity-75">
+Hasil Undian
+</div>
+
+<div
+class="winner-name"
+id="winnerName"
+>
+-
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CoreUI JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.0.2/dist/js/coreui.bundle.min.js"></script>
+
+<script>
+
+const names = [];
+
+let currentRotation = 0;
+
+/* =======================
+Add Name
+======================= */
+
+function addName() {
+
+const input =
+document.getElementById('nameInput');
+
+const value =
+input.value.trim();
+
+if (!value) return;
+
+names.push(value);
+
+input.value = '';
+
+renderNames();
+
+renderWheel();
+}
+
+/* =======================
+Remove Name
+======================= */
+
+function removeName(index) {
+
+names.splice(index, 1);
+
+renderNames();
+
+renderWheel();
+}
+
+/* =======================
+Render Name List
+======================= */
+
+function renderNames() {
+
+const container =
+document.getElementById('nameList');
+
+if (names.length === 0) {
+
+container.innerHTML = &lt;div class="alert alert-light"&gt; Belum ada nama. &lt;/div&gt;;
+
+return;
+}
+
+container.innerHTML =
+names.map((name, index) => `
+
+<div class="name-item">
+
+<span>$`{name}</span>
+
+<button
+class="btn btn-sm btn-danger"
+onclick="removeName(`${index})"
+>
+Hapus
+</button>
+
+</div>
+
+`).join('');
+}
+
+/* =======================
+Render Wheel
+======================= */
+
+function renderWheel() {
+
+const wheel =
+document.getElementById('wheel');
+
+wheel.innerHTML = '';
+
+if (names.length === 0) return;
+
+const colors = [
+'#6366f1',
+'#8b5cf6',
+'#ec4899',
+'#06b6d4',
+'#22c55e',
+'#f59e0b',
+'#ef4444',
+'#14b8a6'
+ ];
+
+const angle =
+360 / names.length;
+
+names.forEach((name, index) => {
+
+const segment =
+document.createElement('div');
+
+segment.className =
+'segment';
+
+segment.style.background =
+colors[index % colors.length];
+
+segment.style.transform =
+rotate(${angle * index}deg)
+skewY(${90 - angle}deg);
+
+segment.innerHTML = `
+
+<div style="
+transform:
+skewY(-{angle / 2}deg);
+">
+$`{name}
+</div>
+
+`;
+
+wheel.appendChild(segment);
+});
+}
+
+/* =======================
+Confetti
+======================= */
+
+function createConfetti() {
+
+for (let i = 0; i < 120; i++) {
+
+const confetti =
+document.createElement('div');
+
+confetti.className =
+'confetti';
+
+confetti.style.left =
+Math.random() * 100 + 'vw';
+
+confetti.style.background =
+hsl(${Math.random() * 360}, 100%, 60%)`;
+
+confetti.style.animationDuration =
+(Math.random() * 3 + 2) + 's';
+
+confetti.style.width =
+(Math.random() * 10 + 6) + 'px';
+
+confetti.style.height =
+confetti.style.width;
+
+document.body.appendChild(confetti);
+
+setTimeout(() => {
+
+confetti.remove();
+
+}, 6000);
+}
+}
+
+/* =======================
+Spin Wheel
+======================= */
+
+function spinWheel() {
+
+if (names.length < 2) {
+
+alert('Minimal 2 nama.');
+
+return;
+}
+
+const wheel =
+document.getElementById('wheel');
+
+const winnerBox =
+document.getElementById('winnerBox');
+
+const winnerName =
+document.getElementById('winnerName');
+
+winnerName.innerText = '...';
+
+const randomIndex =
+Math.floor(Math.random() * names.length);
+
+const segmentAngle =
+360 / names.length;
+
+const targetAngle =
+(360 * 6) +
+(
+360 -
+(randomIndex * segmentAngle) -
+(segmentAngle / 2)
+);
+
+currentRotation += targetAngle;
+
+wheel.style.transform =
+rotate(${currentRotation}deg);
+
+setTimeout(() => {
+
+winnerName.innerText =
+names[randomIndex];
+
+winnerBox.classList.remove(
+'animate__pulse'
+);
+
+void winnerBox.offsetWidth;
+
+winnerBox.classList.add(
+'animate__animated',
+'animate__pulse'
+);
+
+createConfetti();
+
+}, 6200);
+}
+
+renderNames();
+
+</script>
+
+</body>
+</html>
