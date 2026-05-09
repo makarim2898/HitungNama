@@ -559,6 +559,246 @@ id="winnerName"
 
 <!-- CoreUI JS -->
 
+<script>
+
+const names = [];
+
+let currentRotation = 0;
+
+/* =======================
+Add Name
+======================= */
+
+function addName() {
+
+const input =
+document.getElementById('nameInput');
+
+const value =
+input.value.trim();
+
+if (!value) return;
+
+names.push(value);
+
+input.value = '';
+
+renderNames();
+
+renderWheel();
+}
+
+/* =======================
+Remove Name
+======================= */
+
+function removeName(index) {
+
+names.splice(index, 1);
+
+renderNames();
+
+renderWheel();
+}
+
+/* =======================
+Render Name List
+======================= */
+
+function renderNames() {
+
+const container =
+document.getElementById('nameList');
+
+if (names.length === 0) {
+
+container.innerHTML = '<div class="alert alert-light"> Belum ada nama. </div>';
+
+return;
+}
+
+container.innerHTML =
+names.map((name, index) => `
+
+<div class="name-item">
+
+<span>${name}</span>
+
+<button
+class="btn btn-sm btn-danger"
+onclick="removeName(${index})"
+>
+Hapus
+</button>
+
+</div>
+
+`).join('');
+}
+
+/* =======================
+Render Wheel
+======================= */
+
+function renderWheel() {
+
+const wheel =
+document.getElementById('wheel');
+
+wheel.innerHTML = '';
+
+if (names.length === 0) return;
+
+const colors = [
+'#6366f1',
+'#8b5cf6',
+'#ec4899',
+'#06b6d4',
+'#22c55e',
+'#f59e0b',
+'#ef4444',
+'#14b8a6'
+ ];
+
+const angle =
+360 / names.length;
+
+names.forEach((name, index) => {
+
+const segment =
+document.createElement('div');
+
+segment.className =
+'segment';
+
+segment.style.background =
+colors[index % colors.length];
+
+segment.style.transform =
+`rotate(${angle * index}deg) skewY(${90 - angle}deg)`;
+
+segment.innerHTML = `
+
+<div style="
+transform:
+skewY(-${angle / 2}deg);
+">
+${name}
+</div>
+
+`;
+
+wheel.appendChild(segment);
+});
+}
+
+/* =======================
+Confetti
+======================= */
+
+function createConfetti() {
+
+for (let i = 0; i < 120; i++) {
+
+const confetti =
+document.createElement('div');
+
+confetti.className =
+'confetti';
+
+confetti.style.left =
+Math.random() * 100 + 'vw';
+
+confetti.style.background =
+`hsl(${Math.random() * 360}, 100%, 60%)`;
+
+confetti.style.animationDuration =
+(Math.random() * 3 + 2) + 's';
+
+confetti.style.width =
+(Math.random() * 10 + 6) + 'px';
+
+confetti.style.height =
+confetti.style.width;
+
+document.body.appendChild(confetti);
+
+setTimeout(() => {
+
+confetti.remove();
+
+}, 6000);
+}
+}
+
+/* =======================
+Spin Wheel
+======================= */
+
+function spinWheel() {
+
+if (names.length < 2) {
+
+alert('Minimal 2 nama.');
+
+return;
+}
+
+const wheel =
+document.getElementById('wheel');
+
+const winnerBox =
+document.getElementById('winnerBox');
+
+const winnerName =
+document.getElementById('winnerName');
+
+winnerName.innerText = '...';
+
+const randomIndex =
+Math.floor(Math.random() * names.length);
+
+const segmentAngle =
+360 / names.length;
+
+const targetAngle =
+(360 * 6) +
+(
+360 -
+(randomIndex * segmentAngle) -
+(segmentAngle / 2)
+);
+
+currentRotation += targetAngle;
+
+wheel.style.transform =
+`rotate(${currentRotation}deg)`;
+
+setTimeout(() => {
+
+winnerName.innerText =
+names[randomIndex];
+
+winnerBox.classList.remove(
+'animate__pulse'
+);
+
+void winnerBox.offsetWidth;
+
+winnerBox.classList.add(
+'animate__animated',
+'animate__pulse'
+);
+
+createConfetti();
+
+}, 6200);
+}
+
+renderNames();
+
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.0.2/dist/js/coreui.bundle.min.js"></script>
 
 <script>
@@ -614,7 +854,7 @@ document.getElementById('nameList');
 
 if (names.length === 0) {
 
-container.innerHTML = &lt;div class="alert alert-light"&gt; Belum ada nama. &lt;/div&gt;;
+container.innerHTML = '<div class="alert alert-light"> Belum ada nama. </div>';
 
 return;
 }
@@ -624,11 +864,11 @@ names.map((name, index) => `
 
 <div class="name-item">
 
-<span>$`{name}</span>
+<span>${name}</span>
 
 <button
 class="btn btn-sm btn-danger"
-onclick="removeName(`${index})"
+onclick="removeName(${index})"
 >
 Hapus
 </button>
@@ -677,8 +917,7 @@ segment.style.background =
 colors[index % colors.length];
 
 segment.style.transform =
-rotate(${angle * index}deg)
-skewY(${90 - angle}deg);
+`rotate(${angle * index}deg) skewY(${90 - angle}deg)`;
 
 segment.innerHTML = `
 
